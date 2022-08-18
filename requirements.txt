@@ -1,0 +1,7 @@
+flask==2.2.2
+gunicorn==20.1.0
+python-json-logger==2.0.4
+opentelemetry-exporter-otlp==1.12.0
+opentelemetry-sdk==1.12.0
+opentelemetry-api==1.12.0
+opentelemetry-instrumentation-flask==0.33b0

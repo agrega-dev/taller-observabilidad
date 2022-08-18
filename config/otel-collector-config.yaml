@@ -1,0 +1,22 @@
+# Config file used by the OTEL collector container.
+# Enables otlp over grpc receiver, which is exposed on :4317 by default.
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+exporters:
+  logging:
+    loglevel: debug
+processors:
+  batch:
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [logging]
+      processors: [batch]
+    metrics:
+      receivers: [otlp]
+      exporters: [logging]
+      processors: [batch]

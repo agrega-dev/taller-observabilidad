@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  flaskapp:
+    build: .
+    # platform: linux/x86_64 # uncomment if it breaks on m1.
+    ports:
+      - "8000:8000"
+    environment:
+      OTEL_SERVICE_NAME: gunicornapp
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://otlp_collector:4317"
+      OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: "http://otlp_collector:4317"
+      OTEL_METRICS_EXPORTER: none # Enable if you need custom metrics exporters.
+      OTEL_LOGS_EXPORTER: none
+    entrypoint: gunicorn app:app --log-level debug --config gunicorn.config.py
+
+  otlp_collector:
+    image: otel/opentelemetry-collector:latest
+    # platform: linux/x86_64 # uncomment if it breaks on m1.
+    ports:
+      - "4317:4317"
+    volumes:
+      - ./config/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    command: ["--config=/etc/otel-collector-config.yaml"]
