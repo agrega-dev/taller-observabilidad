@@ -1,5 +1,7 @@
 
 # Description
+Copia de https://github.com/TarekAS/otel-flask-example/
+
 
 Este repo contiene un ejemplo de instrumentacion Flask con OpenTelemetry, incluye injeccion de Trace ID en logs de JSON.
 
